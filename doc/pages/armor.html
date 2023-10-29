@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <link rel="stylesheet" href="../src/css/prism.css">
+    <script src="../src/script/prism.js"></script>
+</head>
+<body>
+    <h1>Here's an example :</h1>
+    <div class="box">
+        <pre>
+            <code class="language-python">
+    from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
+    from mhw_api_wrapper.armor import get_armor_by_id
+    import asyncio
+    
+    # Create an instance of the MHWDBWrapper class
+    mhw_api = MHWDBWrapper()
+    
+    async def main():
+        # Get the object details
+        armor_id = 1  # Replace by wanted armor's ID
+        armor_details = await get_armor_by_id(mhw_api, armor_id)
+    
+        if armor_details:
+            print("Armor's ID:", armor_details.id)
+            print("Armor's name :", armor_details.name)
+            print("Armor's description :", armor_details.description)
+            print("Armor's rarity :", armor_details.rarity)
+            print("Female's armor skin :", armor_details.image_female)
+            print("Male's armor skin :", armor_details.image_male)
+        else:
+            print("Not found object or request error.")
+    
+    asyncio.run(main())
+            </code>
+        </pre>
+    </div>
+</body>
+</html>
