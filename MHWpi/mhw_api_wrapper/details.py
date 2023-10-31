@@ -71,6 +71,16 @@ class ItemDetails:
             f"ItemDetails(id={self.id}, name={self.name}, description={self.description}, "
             f"rarity={self.rarity}, carryLimit={self.carryLimit}, value={self.value})"
         )
+@dataclass(order=True)
+class ElementDetails:
+    fire: int
+    water: int
+    ice: int
+    thunder: int
+    dragon: int
+
+    def __repr__(self):
+        return f"ResistanceDetails(fire={self.fire}, water={self.water}, ice={self.ice}, thunder={self.thunder}, dragon={self.dragon})"
 
 @dataclass(order=True)
 class MonsterDetails:
@@ -79,11 +89,11 @@ class MonsterDetails:
     type: str
     species: str
     description: str
-    elements: List[str]
+    elements: List[ElementDetails]
     ailments: List[str]
     locations: List[dict]  # Vous devrez adapter cette annotation de type aux données réelles
-    resistances: List[str]
-    weaknesses: List[dict]  # Vous devrez adapter cette annotation de type aux données réelles
+    resistances: List[ElementDetails]
+    weaknesses: List[ElementDetails]
     rewards: List[dict]  # Vous devrez adapter cette annotation de type aux données réelles
 
     def __post_init__(self):

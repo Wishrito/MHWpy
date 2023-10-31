@@ -1,3 +1,8 @@
+from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import List, Dict
+from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
+from mhw_api_wrapper.details import AilmentDetails
 """
 The MIT License (MIT)
 
@@ -22,8 +27,6 @@ FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
 
-from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
-from mhw_api_wrapper.details import AilmentDetails
 
 async def get_all_ailment(wrapper: MHWDBWrapper):
     """

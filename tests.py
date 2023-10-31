@@ -19,20 +19,21 @@ async def main():
         print("Valeur de l'objet :", object_details.value)
     else:
         print("Objet non trouvé ou erreur de requête.")
+
 async def monsterdetails():
-    monster_id = 50
+    monster_id = 60
     monster_details = await monsters.get_monster_by_id(mhw_api, monster_id)
 
     if monster_details:
         print("Nom du monstre :", monster_details.name)
         print("Description du monstre :", monster_details.description)
-        print("Faiblesses du monstre :", monster_details.weaknesses)
+        print("Faiblesses du monstre :", str(monster_details.elements).replace("['","").replace("']",""))
         print("Type du monstre :", monster_details.type)
 
-async def armor():
+async def armordetails():
     armor_id = 50
     armor_details = await armors.get_armor_by_id(mhw_api, armor_id)
 
     if armor_details:
-        print("Details de l'armure :",armor_details.id)
-asyncio.run(armor())
+        print("Details de l'armure :", armor_details.armorSet.id)
+asyncio.run(armordetails())

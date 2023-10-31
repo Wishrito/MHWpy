@@ -120,4 +120,3 @@ async def get_monster_by_id(wrapper: MHWDBWrapper, monster_id: int):
             rewards=monster_data.get("rewards")
         )
     return None
-

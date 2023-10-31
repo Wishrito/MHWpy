@@ -2,6 +2,7 @@ from __future__ import annotations
 from dataclasses import dataclass, field
 from typing import List, Dict
 from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
+from mhw_api_wrapper.details import ElementDetails
 """
 The MIT License (MIT)
 
@@ -25,8 +26,6 @@ LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
 FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
 DEALINGS IN THE SOFTWARE.
 """
-from dataclasses import dataclass
-from typing import List, Dict
 
 @dataclass(order=True)
 class AssetDetails:
@@ -37,17 +36,6 @@ class AssetDetails:
         return f"AssetDetails(imageMale={self.imageMale}, imageFemale={self.imageFemale})"
 
 @dataclass(order=True)
-class ResistanceDetails:
-    fire: int
-    water: int
-    ice: int
-    thunder: int
-    dragon: int
-
-    def __repr__(self):
-        return f"ResistanceDetails(fire={self.fire}, water={self.water}, ice={self.ice}, thunder={self.thunder}, dragon={self.dragon})"
-
-@dataclass(order=True)
 class SoftArmorDetails:
     id: int
     slug: str
@@ -55,12 +43,12 @@ class SoftArmorDetails:
     type: str
     rank: int
     rarity: int
-    defense: dict
-    resistances: ResistanceDetails
+    defense: dict[int, int]
+    resistances: dict[ElementDetails, ElementDetails]
     slots: List[dict]
     attributes: dict
     skills: List
-    assets: AssetDetails
+    assets: List[AssetDetails]
 
     def __repr__(self):
         return f"SoftArmorDetails(id={self.id}, name={self.name}, type={self.type}, rarity={self.rarity}, slug={self.slug})"
@@ -89,7 +77,7 @@ class ArmorDetails:
     rank: int
     rarity: int
     defense: dict
-    resistances: ResistanceDetails  # Utilisez la classe ResistanceDetails pour les résistances
+    resistances: ElementDetails  # Utilisez la classe ResistanceDetails pour les résistances
     slots: List[dict]
     attributes: dict
     skills: List
