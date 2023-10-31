@@ -5,10 +5,10 @@ This is a Python wrapper for the MHWpy API, which provides information about Mon
 
 ## Installation
 
-You can install the MHWpy API wrapper using pip:
+You can install the MHWpy API wrapper by downloading ``MonsterHunterWorldPy-VERSION.tar.gz``, and using pip:
 
 ```bash
-pip install mhwpy-wrapper
+pip install MonsterHunterWorldPy-VERSION.tar.gz
 ```
 
 ## Usage
@@ -18,9 +18,9 @@ pip install mhwpy-wrapper
 First, you need to create an instance of the `MHWDBWrapper`:
 
 ```python
-from mhwpy_wrapper import MHWDBWrapper
+from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
 
-mhw_api = MHWDBWrapper(base_url="https://api.mhwpy.com")
+mhw_api = MHWDBWrapper()
 ```
 
 ### Getting Monster Details
@@ -87,8 +87,3 @@ Feel free to contribute to this project by opening issues or submitting pull req
 ## License
 
 This project is licensed under the MIT License.
-
-```
-
-This example README.md provides a simple introduction to the API wrapper, installation instructions, usage examples for various functions, information on how to contribute, and the license. You can customize it to fit your project's needs.
-```
