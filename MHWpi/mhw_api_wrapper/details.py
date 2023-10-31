@@ -1,104 +1,106 @@
+from __future__ import annotations
+from dataclasses import dataclass, field
+from typing import List, Dict
+"""
+details module for the MHWpy API.
+"""
+
+@dataclass(order=True)
 class AilmentDetails:
-    def __init__(self, data):
-        self.id = data.get("id")
-        self.name = data.get("name")
-        self.description = data.get("description")
-        self.recovery = data.get("recovery")
-        self.protection = data.get("protection")
+    """
+    Class representing ailment details from the MHWpy API.
 
-        # Si vous souhaitez accéder aux propriétés de récupération, vous pouvez le faire comme suit.
-        if self.recovery:
-            self.recovery_actions = self.recovery.get("actions")
-            self.recovery_items = self.recovery.get("items")
+    Attributes
+    ----------
+    id: int
+        The id of the ailment.
+    name: str
+        The name of the ailment.
+    description: str
+        The description of the ailment.
+    elements: List[str]
+        A list of elements associated with the ailment.
+    ailments: List[str]
+        A list of ailments associated with the ailment.
+    locations: List[dict]
+        A list of locations where the ailment is found. The annotation should be adapted to the actual data.
+    resistances: List[str]
+        A list of resistances associated with the ailment.
+    weaknesses: List[dict]
+        A list of weaknesses of the ailment. The annotation should be adapted to the actual data.
+    rewards: List[dict]
+        A list of rewards for the ailment. The annotation should be adapted to the actual data.
+    """
+    id: int
+    name: str
+    description: str
+    recovery_actions: List[str]
+    recovery_item: List[dict]
+    protection_items: List[dict]
+    protection_skills: AilmentDetails
 
-        # Si vous souhaitez accéder aux propriétés de protection, vous pouvez le faire comme suit.
-        if self.protection:
-            self.protection_items = self.protection.get("items")
-            self.protection_skills = self.protection.get("skills")
+    def __post_init__(self):
+        for data in self.protection_items:
+            data["id"] = data["id"] if "id" in data else None
+            data["name"] = data["name"] if "name" in data else None
+            data["description"] = data["description"] if "description" in data else None
+            
+        for data in self.recovery_item:
+            data["id"] = data["id"] if "id" in data else None
+            data["name"] = data["name"] if "name" in data else None
+            data["description"] = data["description"] if "description" in data else None
+            
 
+    def __repr__(self):
+        return (
+            f"MonsterDetails(id={self.id}, name={self.name}"
+            f"description={self.description})"
+        )
+
+@dataclass(order=True)
 class ItemDetails:
-    def __init__(self, data):
-        self.id = data.get("id")
-        self.name = data.get("name")
-        self.description = data.get("description")
-        self.rarity = data.get("rarity")
-        self.carryLimit = data.get("carryLimit")
-        self.value = data.get("value")
+    id: int
+    name: str
+    description: str
+    rarity: int
+    carryLimit: int
+    value: int
 
-class ArmorDetails:
-    def __init__(self, data):
-        self.id = data.get("id")
-        self.slug = data.get("slug")
-        self.name = data.get("name")
-        self.type = data.get("type")
-        self.rank = data.get("rank")
-        self.rarity = data.get("rarity")
+    def __repr__(self):
+        return (
+            f"ItemDetails(id={self.id}, name={self.name}, description={self.description}, "
+            f"rarity={self.rarity}, carryLimit={self.carryLimit}, value={self.value})"
+        )
 
-        self.defense = data.get("defense")
-        if self.defense:
-            self.base_defense = self.defense.get("base")
-            self.max_defense = self.defense.get("max")
-            self.augmented_defense = self.defense.get("augmented")
+@dataclass(order=True)
+class MonsterDetails:
+    id: int
+    name: str
+    type: str
+    species: str
+    description: str
+    elements: List[str]
+    ailments: List[str]
+    locations: List[dict]  # Vous devrez adapter cette annotation de type aux données réelles
+    resistances: List[str]
+    weaknesses: List[dict]  # Vous devrez adapter cette annotation de type aux données réelles
+    rewards: List[dict]  # Vous devrez adapter cette annotation de type aux données réelles
 
-        self.resistances = data.get("resistances")
-        if self.resistances:
-            self.fire_resistance = self.resistances.get("fire")
-            self.water_resistance = self.resistances.get("water")
-            self.ice_resistance = self.resistances.get("ice")
-            self.thunder_resistance = self.resistances.get("thunder")
-            self.dragon_resistance = self.resistances.get("dragon")
+    def __post_init__(self):
+        for data in self.locations:
+            data["element"] = data["element"] if "element" in data else None
+            data["condition"] = data["condition"] if "condition" in data else None
 
-        self.slots = data.get("slots")
+        for data in self.rewards:
+            data["id"] = data["id"] if "id" in data else None
+            data["item"] = data["item"] if "item" in data else None
+            data["chance"] = data["chance"] if "chance" in data else None
 
-        self.attributes = data.get("attributes")
-
-        self.skills = data.get("skills")
-
-        self.armorSet = data.get("armorSet")
-        if self.armorSet:
-            self.armor_set_id = self.armorSet.get("id")
-            self.armor_set_name = self.armorSet.get("name")
-            self.armor_set_rank = self.armorSet.get("rank")
-            self.armor_set_pieces = self.armorSet.get("pieces")
-
-        self.assets = data.get("assets")
-        if self.assets:
-            self.image_male = self.assets.get("imageMale")
-            self.image_female = self.assets.get("imageFemale")
-
-        self.crafting = data.get("crafting")
-        if self.crafting:
-            self.crafting_materials = self.crafting.get("materials")
-
-class ArmorSetDetails:
-    def __init__(self, data):
-        self.id = data.get("id")
-        self.name = data.get("name")
-        self.rank = data.get("rank")
-        self.pieces = data.get("pieces")
-        self.bonus = data.get("bonus")
-
-        # Si vous souhaitez accéder aux propriétés des pièces, vous pouvez le faire comme suit.
-        if self.pieces:
-            # Accédez à la première pièce
-            first_piece = self.pieces[0]
-            self.piece_id = first_piece.get("id")
-            self.piece_slug = first_piece.get("slug")
-            self.piece_name = first_piece.get("name")
-            self.piece_type = first_piece.get("type")
-            self.piece_rank = first_piece.get("rank")
-            self.piece_rarity = first_piece.get("rarity")
-            self.piece_armorSet = first_piece.get("armorSet")
-            self.piece_attributes = first_piece.get("attributes")
-            self.piece_skills = first_piece.get("skills")
-            self.piece_assets = first_piece.get("assets")
-
-        # Si vous souhaitez accéder aux propriétés du bonus, vous pouvez le faire comme suit.
-        if self.bonus:
-            # Accédez au premier rang du bonus
-            first_rank = self.bonus.get("ranks")[0]
-            self.bonus_skill_level = first_rank.get("pieces")
-            self.bonus_skill = first_rank.get("skill")
+    def __repr__(self):
+        return (
+            f"MonsterDetails(id={self.id}, name={self.name}, type={self.type}, "
+            f"species={self.species}, description={self.description})"
+        )
 
 class LocationDetails:
     def __init__(self, data):

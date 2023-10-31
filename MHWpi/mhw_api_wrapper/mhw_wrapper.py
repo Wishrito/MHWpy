@@ -5,7 +5,7 @@ class MHWDBWrapper:
         self.base_url = "https://mhw-db.com"
 
     # Fonctions partagées
-    def make_request(self, endpoint):
+    def make_request(self, endpoint: str):
         url = self.base_url + endpoint
         response = requests.get(url)
         if response.status_code == 200:
