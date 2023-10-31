@@ -28,6 +28,8 @@ mhw_api = MHWDBWrapper()
 You can use the `get_monster_by_id` function to get details about a specific monster:
 
 ```python
+from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
+from mhw_api_wrapper import monsters
 import asyncio
 
 async def get_monster_details():
@@ -47,6 +49,8 @@ asyncio.run(get_monster_details())
 You can use the `get_armor_by_id` function to get details about a specific armor:
 
 ```python
+from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
+from mhw_api_wrapper import armors
 import asyncio
 
 async def get_armor_details():
@@ -66,6 +70,8 @@ asyncio.run(get_armor_details())
 You can use the `get_item_by_id` function to get details about a specific item:
 
 ```python
+from mhw_api_wrapper.mhw_wrapper import MHWDBWrapper
+from mhw_api_wrapper import items
 import asyncio
 
 async def get_item_details():
